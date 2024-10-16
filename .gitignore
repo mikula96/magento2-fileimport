@@ -13,10 +13,6 @@
 /media/customer/*
 !/media/customer/.htaccess
 
-!/media/dhl
-/media/dhl/*
-!/media/dhl/logo.jpg
-
 !/media/downloadable
 /media/downloadable/*
 !/media/downloadable/.htaccess
@@ -43,3 +39,4 @@
 /var/package/*
 !/var/package/*.xml
 
+/vendor/*
