@@ -1,0 +1,12 @@
+<schema
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="tire_size_patterns" engine="innodb" resource="default">
+        <column xsi:type="varchar" name="size" nullable="false" />
+        <column xsi:type="varchar" name="patterns" nullable="false" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="size" />
+        </constraint>
+    </table>
+</schema>
