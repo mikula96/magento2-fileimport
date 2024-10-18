@@ -2,7 +2,9 @@
 
 namespace SmSoftware\Import\Console\Command;
 
+use Magento\Framework\App\Area;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\App\State;
 use Magento\Framework\Console\Cli;
 use SmSoftware\Import\Model\Service\ImportService;
 use Symfony\Component\Console\Command\Command;
@@ -15,16 +17,19 @@ class Import extends Command
     const FILENAME = 'filename';
     private ImportService $_importService;
     private DirectoryList $_directoryList;
+    private State $_state;
 
     public function __construct(
         DirectoryList $directoryList,
         ImportService $importService,
+        State $state,
         string $name = null
     )
     {
         parent::__construct($name);
         $this->_directoryList = $directoryList;
         $this->_importService = $importService;
+        $this->_state = $state;
     }
 
     protected function configure()
@@ -37,6 +42,7 @@ class Import extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try{
+            $this->_state->setAreaCode(Area::AREA_CRONTAB);
             $filename = $input->getArgument(self::FILENAME);
 
             $filepath = $this->_directoryList->getPath(DirectoryList::VAR_DIR).'/import/'.$filename;
