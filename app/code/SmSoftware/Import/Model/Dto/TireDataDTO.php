@@ -5,7 +5,7 @@ namespace SmSoftware\Import\Model\Dto;
 class TireDataDTO {
     public string $sku;
     public string $name;
-    public int $price;
+    public float $price;
     public int $qty;
     public string $size;
     public string $sizeVariation;

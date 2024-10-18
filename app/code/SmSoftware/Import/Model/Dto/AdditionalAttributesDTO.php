@@ -14,29 +14,10 @@ class AdditionalAttributesDTO
         $this->utqg = $utqg;
     }
 
-    /**
-     * @return string
-     */
-    public function getMpn(): string
-    {
-        return $this->mpn;
+    public function __get($property) {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        return null;
     }
-
-    /**
-     * @return string
-     */
-    public function getSpeedRating(): string
-    {
-        return $this->speedRating;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUtqg(): string
-    {
-        return $this->utqg;
-    }
-
-
 }

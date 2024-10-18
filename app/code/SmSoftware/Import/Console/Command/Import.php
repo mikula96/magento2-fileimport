@@ -38,10 +38,6 @@ class Import extends Command
     {
         try{
             $filename = $input->getArgument(self::FILENAME);
-            if(!empty($filename)){
-                $output->writeln("<error>Filename is required!</error>");
-                return Cli::RETURN_FAILURE;
-            }
 
             $filepath = $this->_directoryList->getPath(DirectoryList::VAR_DIR).'/import/'.$filename;
             $this->_importService->import($filepath);
