@@ -2,19 +2,26 @@
 
 namespace SmSoftware\Import\Model\Service;
 
+use SmSoftware\Import\Exception\FileValidationException;
+use SmSoftware\Import\Model\Dto\TireDataDTO;
+
 class ImportService
 {
-    private ValidationService $_validationService;
-
-    public function __construct(
-        ValidationService $validationService
-    )
+    public function __construct()
     {
-        $this->_validationService = $validationService;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function import(string $filepath): void
     {
-        // Import logic here
+        $validFile = ValidationService::validate($filepath);
+        if(!$validFile) {
+            throw new FileValidationException('File is not readable or doesn\'t exist');
+        }
+
+        /** @var TireDataDTO $data */
+        $data = FileHandler::readFileToArray($filepath);
     }
 }

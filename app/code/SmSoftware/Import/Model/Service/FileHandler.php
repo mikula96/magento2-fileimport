@@ -8,7 +8,9 @@ use SmSoftware\Import\Model\Dto\TireDataDTO;
 
 class FileHandler
 {
-    public function readFileToArray($filePath): array
+    private function __construct(){}
+
+    public static function readFileToArray($filePath): array
     {
         $spreadsheet = IOFactory::load($filePath);
         $sheet = $spreadsheet->getActiveSheet();

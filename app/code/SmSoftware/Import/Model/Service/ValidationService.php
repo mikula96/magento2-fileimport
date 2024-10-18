@@ -4,9 +4,10 @@ namespace SmSoftware\Import\Model\Service;
 
 class ValidationService
 {
-    public function validate(string $filepath): bool
+    private function __construct(){}
+
+    public static function validate(string $filepath): bool
     {
-        // Validation logic here
-        return false;
+        return is_readable($filepath);
     }
 }
