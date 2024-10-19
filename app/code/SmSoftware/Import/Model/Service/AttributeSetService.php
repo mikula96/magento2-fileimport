@@ -17,16 +17,19 @@ class AttributeSetService
     private AttributeSetManagementInterface $_attributeSetManagement;
     private SetFactory $_attributeSetFactory;
     private TypeFactory $_eavTypeFactory;
+    private AttributeService $_attributeService;
 
     public function __construct(
         AttributeSetManagementInterface $attributeSetManagement,
         SetFactory $attributeSetFactory,
-        TypeFactory $eavTypeFactory
+        TypeFactory $eavTypeFactory,
+        AttributeService $attributeService
     )
     {
         $this->_attributeSetManagement = $attributeSetManagement;
         $this->_attributeSetFactory = $attributeSetFactory;
         $this->_eavTypeFactory = $eavTypeFactory;
+        $this->_attributeService = $attributeService;
     }
 
     /**
@@ -47,6 +50,7 @@ class AttributeSetService
             $attributeSetName = trim(strval($attributeSetName));
             if(!in_array($attributeSetName, $this->_attributeSets)) {
                 $attributeSetId = $this->_createAttributeSet($attributeSetName, $defaultSetId);
+                $this->_attributeService->createProductAttribute($attributeSetName, $attributeSetName, $attributeSetId);
                 $this->_attributeSets[$attributeSetName] = $attributeSetId;
             }
         }
