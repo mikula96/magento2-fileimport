@@ -13,16 +13,22 @@ class ImportService
     private ProductRepositoryInterface $_productRepository;
     private Product $_productResource;
     private TireDataConverter $_tireDataConverter;
+    private CategoryService $_categoryService;
+    private AttributeSetService $_attributeSetService;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        Product $productResource,
-        TireDataConverter $tireDataConverter
+        Product                    $productResource,
+        TireDataConverter          $tireDataConverter,
+        CategoryService            $categoryService,
+        AttributeSetService        $attributeSetService
     )
     {
         $this->_productRepository = $productRepository;
         $this->_productResource = $productResource;
         $this->_tireDataConverter = $tireDataConverter;
+        $this->_categoryService = $categoryService;
+        $this->_attributeSetService = $attributeSetService;
     }
 
     /**
@@ -31,15 +37,21 @@ class ImportService
     public function import(string $filepath): void
     {
         $validFile = ValidationService::validate($filepath);
-        if(!$validFile) {
+        if (!$validFile) {
             throw new FileValidationException('File is not readable or doesn\'t exist');
         }
 
-        /** @var TireDataDTO $data */
         $data = FileHandler::readFileToArray($filepath);
+        /** @var TireDataDTO $tireData */
+        $brands = [];
         foreach ($data as $tireData) {
-            $product = $this->_tireDataConverter->convert($tireData);
-            $this->_productResource->save($product);
+            $this->_categoryService->addMultiplePredefinedCategories($tireData);
+            if (!in_array($tireData->brand, $brands)) {
+                $brands[] = $tireData->brand;
+            }
         }
+//            $product = $this->_tireDataConverter->convert($tireData);
+        $this->_attributeSetService->createAttributeSets($brands);
+        $this->_categoryService->createCategories();
     }
 }

@@ -32,10 +32,64 @@ class TireDataDTO {
         $this->additionalAttributes = $additionalAttributes;
     }
 
-    public function __get($property) {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-        return null;
+
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function getQty(): int
+    {
+        return $this->qty;
+    }
+
+    public function getSize(): string
+    {
+        return $this->size;
+    }
+
+    public function getSizeVariation(): string
+    {
+        return $this->sizeVariation;
+    }
+
+    public function getBrand(): string
+    {
+        return $this->brand;
+    }
+
+    public function getModel(): string
+    {
+        return $this->model;
+    }
+
+    public function getPerformance(): string
+    {
+        return $this->performance;
+    }
+
+    public function getCarType(): string
+    {
+        return $this->carType;
+    }
+
+    public function getSeason(): string
+    {
+        return $this->season;
+    }
+
+    public function getAdditionalAttributes(): array
+    {
+        return $this->additionalAttributes;
     }
 }

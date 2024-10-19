@@ -42,15 +42,15 @@ class Import extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try{
+            $output->writeln("<info>".date('Y-m-d H:i:s')." Import started...</info>");
             $this->_state->setAreaCode(Area::AREA_CRONTAB);
             $filename = $input->getArgument(self::FILENAME);
 
             $filepath = $this->_directoryList->getPath(DirectoryList::VAR_DIR).'/import/'.$filename;
             $this->_importService->import($filepath);
-            $output->writeln("<info>".date('Y-m-d H:i:s')."Import started...</info>");
-            $output->writeln("<info>".date('Y-m-d H:i:s')."Import finished</info>");
+            $output->writeln("<info>".date('Y-m-d H:i:s')." Import finished</info>");
         }catch (\Exception $e){
-            $output->writeln("<error>{$e->getMessage()}</error>");
+            $output->writeln("<error>{$e->getMessage()}\n{$e->getTraceAsString()}</error>");
             return Cli::RETURN_FAILURE;
         }
         return Cli::RETURN_SUCCESS;
